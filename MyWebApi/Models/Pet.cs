@@ -4,14 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyWebApi.Models
 {
-    public class Good
+    public class Pet
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid GoodId { get; set; }
+        public Guid PetId { get; set; }
 
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public string Description { get; set; }
+        public string Description { get; set; }        
     }
 }

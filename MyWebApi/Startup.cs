@@ -7,6 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 using System.Reflection;
 using Microsoft.Extensions.PlatformAbstractions;
+using MyWebApi.Db;
+using Microsoft.EntityFrameworkCore;
+using MyWebApi.Db.DataManager;
+using MyWebApi.Db.Repository;
+using MyWebApi.Models;
 
 namespace MyWebApi
 {
@@ -22,6 +27,10 @@ namespace MyWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<MyWebApiContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:MyWebApi"]));
+            services.AddScoped<IDataRepository<Pet>, PetManager>();
+            services.AddScoped<IDataRepository<Good>, GoodManager>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddApiVersioning(options =>
             {
