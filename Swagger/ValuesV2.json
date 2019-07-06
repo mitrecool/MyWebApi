@@ -48,7 +48,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Pets"
+                    "$ref": "#/components/schemas/Pet"
                   }
                 }
               }
@@ -65,11 +65,11 @@
         "operationId": "ValuesV2_RetrievePet",
         "parameters": [
           {
-            "name": "name",
+            "name": "id",
             "in": "query",
             "schema": {
               "type": "string",
-              "nullable": true
+              "format": "guid"
             },
             "x-position": 1
           }
@@ -80,10 +80,71 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Pets"
-                  }
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/values/createPet": {
+      "post": {
+        "tags": [
+          "ValuesV2"
+        ],
+        "operationId": "ValuesV2_CreatePet",
+        "requestBody": {
+          "x-name": "pet",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Pet"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/values/updatePet": {
+      "patch": {
+        "tags": [
+          "ValuesV2"
+        ],
+        "operationId": "ValuesV2_UpdatePet",
+        "requestBody": {
+          "x-name": "pet",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Pet"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
                 }
               }
             }
@@ -98,6 +159,10 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "goodId": {
+            "type": "string",
+            "format": "guid"
+          },
           "name": {
             "type": "string",
             "nullable": true
@@ -112,10 +177,14 @@
           }
         }
       },
-      "Pets": {
+      "Pet": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "petId": {
+            "type": "string",
+            "format": "guid"
+          },
           "name": {
             "type": "string",
             "nullable": true

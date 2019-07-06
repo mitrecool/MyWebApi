@@ -69,13 +69,30 @@ namespace MyWebApi.Controllers
 
         [HttpPost]
         [Route("createPet")]
-        public async Task<IActionResult> CreatePet(Pet pet)
+        public async Task<ActionResult<Pet>> CreatePet(Pet pet)
         {
             try
             {
                 await _petRepository.AddAsync(pet);
 
-                return Ok();
+                return Ok(pet);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPatch]
+        [Route("updatePet")]
+        public async Task<ActionResult<Pet>> UpdatePet(Pet pet)
+        {
+            try
+            {
+                var petOld = await _petRepository.GetAsync(pet.PetId);
+                await _petRepository.UpdateAsync(petOld, pet);
+
+                return pet;
             }
             catch(Exception ex)
             {
