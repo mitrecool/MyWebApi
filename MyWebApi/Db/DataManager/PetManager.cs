@@ -1,4 +1,5 @@
-﻿using MyWebApi.Db.Repository;
+﻿using Microsoft.EntityFrameworkCore;
+using MyWebApi.Db.Repository;
 using MyWebApi.Models;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,14 @@ namespace MyWebApi.Db.DataManager
         {
             _myWebApiContext.Pets.Remove(pet);
             await _myWebApiContext.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Pet>> FindByNameAsync(string name)
+        {
+            return await Task.FromResult(_myWebApiContext.Pets
+                .Where(p => EF.Functions.Like(p.Name, $"%{name}%"))
+                .ToList()
+            );
         }
     }
 }

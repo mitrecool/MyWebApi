@@ -47,5 +47,13 @@ namespace MyWebApi.Db.DataManager
             _myWebApiContext.Goods.Remove(good);
             await _myWebApiContext.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<Good>> FindByNameAsync(string name)
+        {
+            return await Task.FromResult(_myWebApiContext.Goods
+                .Where(p => p.Name.Contains(name))
+                .ToList()
+            );
+        }
     }
 }

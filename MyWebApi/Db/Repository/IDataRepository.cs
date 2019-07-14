@@ -11,5 +11,6 @@ namespace MyWebApi.Db.Repository
         Task AddAsync(TEntity entity);
         Task UpdateAsync(TEntity dbEntity, TEntity entity);
         Task DeleteAsync(TEntity entity);
+        Task<IEnumerable<TEntity>> FindByNameAsync(string name);
     }
 }

@@ -92,7 +92,21 @@ namespace MyWebApi.Controllers
                 var petOld = await _petRepository.GetAsync(pet.PetId);
                 await _petRepository.UpdateAsync(petOld, pet);
 
-                return pet;
+                return Ok(pet);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("findPetByName")]
+        public async Task<ActionResult<IEnumerable<Pet>>> FindPetByName(string name)
+        {
+            try
+            {
+                return Ok(await _petRepository.FindByNameAsync(name));
             }
             catch(Exception ex)
             {
