@@ -109,6 +109,20 @@ namespace MyWebApi.Controllers
                 return Ok(await _petRepository.FindByNameAsync(name));
             }
             catch(Exception ex)
+            {                
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("findGoodByName")]
+        public async Task<ActionResult<IEnumerable<Good>>> FindGoodByName(string name)
+        {
+            try
+            {
+                return Ok(await _goodRepository.FindByNameAsync(name));
+            }
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }

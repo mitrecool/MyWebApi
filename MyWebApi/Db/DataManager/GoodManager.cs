@@ -1,4 +1,5 @@
-﻿using MyWebApi.Db.Repository;
+﻿using Microsoft.EntityFrameworkCore;
+using MyWebApi.Db.Repository;
 using MyWebApi.Models;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace MyWebApi.Db.DataManager
 
         public async Task<IEnumerable<Good>> GetAllAsync()
         {
-            return await Task.FromResult(_myWebApiContext.Goods.ToList());
+            return await _myWebApiContext.Goods.ToListAsync();
         }
 
         public async Task<Good> GetAsync(Guid id)
@@ -50,10 +51,9 @@ namespace MyWebApi.Db.DataManager
 
         public async Task<IEnumerable<Good>> FindByNameAsync(string name)
         {
-            return await Task.FromResult(_myWebApiContext.Goods
-                .Where(p => p.Name.Contains(name))
-                .ToList()
-            );
+            return await _myWebApiContext.Goods
+                .Where(p => EF.Functions.Like(p.Name, $"{name}%"))
+                .ToListAsync();            
         }
     }
 }

@@ -16,6 +16,14 @@ namespace MyWebApi.Db
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Pet>()
+                .HasIndex(b => b.Name)
+                .ForSqlServerInclude("Description", "Price");
+
+            modelBuilder.Entity<Good>()
+                .HasIndex(g => g.Name)
+                .ForSqlServerInclude("Description", "Price");
+
             modelBuilder.Entity<Pet>().HasData(
                 new Pet() { PetId = Guid.NewGuid(), Name = "Cat", Description = "Cute cat", Price = 111.0m },
                 new Pet() { PetId = Guid.NewGuid(), Name = "Dog", Description = "Good boy", Price = 111.0m }

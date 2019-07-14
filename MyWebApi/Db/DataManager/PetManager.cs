@@ -19,7 +19,7 @@ namespace MyWebApi.Db.DataManager
 
         public async Task<IEnumerable<Pet>> GetAllAsync()
         {
-            return await Task.FromResult(_myWebApiContext.Pets.ToList());
+            return await _myWebApiContext.Pets.ToListAsync();
         }
 
         public async Task<Pet> GetAsync(Guid id)
@@ -51,10 +51,9 @@ namespace MyWebApi.Db.DataManager
 
         public async Task<IEnumerable<Pet>> FindByNameAsync(string name)
         {
-            return await Task.FromResult(_myWebApiContext.Pets
-                .Where(p => EF.Functions.Like(p.Name, $"%{name}%"))
-                .ToList()
-            );
+            return await _myWebApiContext.Pets
+                .Where(p => EF.Functions.Like(p.Name, $"{name}%"))
+                .ToListAsync();
         }
     }
 }
