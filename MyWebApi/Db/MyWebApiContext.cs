@@ -6,6 +6,8 @@ namespace MyWebApi.Db
 {
     public class MyWebApiContext : DbContext
     {
+        public const int MaxTopCount = 50;
+
         public DbSet<Good> Goods { get; set; }
         public DbSet<Pet> Pets { get; set; }
 
@@ -16,7 +18,7 @@ namespace MyWebApi.Db
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Pet>()
+            modelBuilder.Entity<Pet>()                
                 .HasIndex(b => b.Name)
                 .ForSqlServerInclude("Description", "Price");
 

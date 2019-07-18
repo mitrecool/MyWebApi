@@ -19,7 +19,10 @@ namespace MyWebApi.Db.DataManager
 
         public async Task<IEnumerable<Pet>> GetAllAsync()
         {
-            return await _myWebApiContext.Pets.ToListAsync();
+            return await _myWebApiContext.Pets
+                .Take(MyWebApiContext.MaxTopCount)
+                .OrderBy(p => p.PetId)
+                .ToListAsync();
         }
 
         public async Task<Pet> GetAsync(Guid id)

@@ -24,11 +24,14 @@ namespace MyWebApi.Migrations
                     b.Property<Guid>("GoodId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(4000)");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(200)");
 
-                    b.Property<decimal>("Price");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18, 2)");
 
                     b.HasKey("GoodId");
 
@@ -40,14 +43,14 @@ namespace MyWebApi.Migrations
                     b.HasData(
                         new
                         {
-                            GoodId = new Guid("33a644db-6d21-4126-a985-112637d1ef2a"),
+                            GoodId = new Guid("90f3bf1e-18a9-4601-b03d-d83a9f99ca4d"),
                             Description = "New soccer ball",
                             Name = "Soccer ball",
                             Price = 111.0m
                         },
                         new
                         {
-                            GoodId = new Guid("eb9303fc-7a7f-4a50-bb1e-2df5aef221de"),
+                            GoodId = new Guid("eb0738cd-a0cb-428c-8e3a-85c99d880b80"),
                             Description = "New foot ball",
                             Name = "Foot ball",
                             Price = 221.0m
@@ -59,11 +62,14 @@ namespace MyWebApi.Migrations
                     b.Property<Guid>("PetId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(4000)");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(200)");
 
-                    b.Property<decimal>("Price");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18, 2)");
 
                     b.HasKey("PetId");
 
@@ -75,14 +81,14 @@ namespace MyWebApi.Migrations
                     b.HasData(
                         new
                         {
-                            PetId = new Guid("077ded3b-8f61-4f02-bd7c-e75220ecff05"),
+                            PetId = new Guid("785a153a-f0d9-4d66-b75e-61cf22443be4"),
                             Description = "Cute cat",
                             Name = "Cat",
                             Price = 111.0m
                         },
                         new
                         {
-                            PetId = new Guid("0a5bc2ae-a65b-4bf6-ae75-238d43eeb55e"),
+                            PetId = new Guid("b61fac69-cc44-4a3c-94da-b2205062b1db"),
                             Description = "Good boy",
                             Name = "Dog",
                             Price = 111.0m

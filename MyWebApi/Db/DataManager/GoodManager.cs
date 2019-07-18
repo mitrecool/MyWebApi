@@ -19,7 +19,10 @@ namespace MyWebApi.Db.DataManager
 
         public async Task<IEnumerable<Good>> GetAllAsync()
         {
-            return await _myWebApiContext.Goods.ToListAsync();
+            return await _myWebApiContext.Goods
+                .Take(MyWebApiContext.MaxTopCount)
+                .OrderBy(g => g.GoodId)
+                .ToListAsync();
         }
 
         public async Task<Good> GetAsync(Guid id)
